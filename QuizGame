@@ -1,0 +1,123 @@
+//
+//  ViewController.swift
+//  QuizGame
+//
+//  Created by Arcést on 2015/02/26.
+//  Copyright (c) 2015年 mycompany. All rights reserved.
+//
+
+import UIKit
+
+class ViewController: UIViewController {
+    @IBOutlet weak var quizNum: UILabel!
+    @IBOutlet weak var quizPoint: UILabel!
+    @IBOutlet weak var quizJudge: UILabel!
+    
+    @IBOutlet weak var quizText: UITextView!
+    @IBOutlet weak var quizKaisetsu: UITextView!
+    
+    @IBOutlet weak var nextButtonOutlet: UIButton!
+    
+    var point = 0
+    var clickLimit = 0
+
+    @IBAction func answerTrue() {
+        if clickLimit == 0 {
+            if answerArray[number - 1] == 1 {
+                point = point + 10
+                quizPoint.text = "\(point)"
+                quizJudge.text = "正解です！"
+            } else {
+                quizPoint.text = "\(point)"
+                quizJudge.text = "不正解です！"
+            }
+            quizKaisetsu.text = "\(kaisetsuArray[number - 1])"
+        }
+        
+        clickLimit = 1
+    }
+    
+    @IBAction func answerFalse() {
+        if clickLimit == 0 {
+            if answerArray[number - 1] == 0 {
+                point = point + 10
+                quizPoint.text = "\(point)"
+                quizJudge.text = "正解です！"
+            } else {
+                quizPoint.text = "\(point)"
+                quizJudge.text = "不正解です！"
+            }
+            quizKaisetsu.text = "\(kaisetsuArray[number - 1])"
+        }
+        
+        clickLimit = 1
+    }
+    
+    var number = 1
+    var quizArray = ["「pen」と「pencil」は同語源である。○か×か",
+        "消しゴムが発明されるまでは、消しゴムの代わりにパンが使われていた。○か×か",
+        "万年筆が日本に入ってきたのは、1900年以降である。○か×か",
+        "巻き尺の「尺」は、長さの単位「尺」から来ている。○か×か",
+        "筆箱は英語で「pen case」である。○か×か"]
+    var kaisetsuArray = ["「pen」は「羽根」を意味するラテン語「penna」、「pencil」は「小さなしっぽ」を意味するラテン語「penicillus」が由来である。",
+        "　",
+        "万年筆が日本に入ってきたのは、1884年である。",
+        "　",
+        "筆箱は英語で「pencil case」。「ペンケース」は和製英語である。"]
+    var answerArray = [0, 1, 0, 1, 0]
+
+    
+    @IBAction func nextButton() {
+        clickLimit = 0
+        
+        if number  < 5 {
+            number = number + 1
+            quizNum.text = "Q\(number)."
+            quizText.text = "\(quizArray[number - 1])"
+            quizJudge.text = "正解 or 不正解"
+            quizKaisetsu.text = "　"
+        } else {
+            nextButtonOutlet.setTitle("　", forState: .Normal)
+        }
+        
+        
+
+    }
+    
+    @IBAction func resetButton() {
+        clickLimit = 0
+        number = 1
+        point = 0
+        
+        quizNum.text = "Q1."
+        quizPoint.text = "0"
+        quizText.text = "\(quizArray[number - 1])"
+        quizJudge.text = "正解 or 不正解"
+        quizKaisetsu.text = "　"
+        nextButtonOutlet.setTitle("次へ", forState: .Normal)
+    }
+    
+    override func viewDidLoad() {
+        clickLimit = 0
+        number = 1
+        point = 0
+        
+        quizNum.text = "Q\(number)."
+        quizPoint.text = "0"
+        quizText.text = "\(quizArray[number - 1])"
+        quizJudge.text = "正解 or 不正解"
+        quizKaisetsu.text = "　"
+        
+        
+        super.viewDidLoad()
+        // Do any additional setup after loading the view, typically from a nib.
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+
+
+}
+
